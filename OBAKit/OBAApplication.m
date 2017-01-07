@@ -148,6 +148,10 @@ NSString *const kOBAApplicationSettingsRegionRefreshNotification = @"kOBAApplica
     return @"UA-2423527-17";
 }
 
+- (NSString*)oneSignalAPIKey {
+    return @"d5d0d28a-6091-46cd-9627-0ce01ffa9f9e";
+}
+
 #pragma mark - App/Region/API State
 
 - (void)refreshSettings {    
