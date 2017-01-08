@@ -26,9 +26,26 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)JSONDataSourceWithBaseURL:(NSURL*)URL userID:(NSString*)userID;
 + (instancetype)googleMapsJSONDataSource;
 
+/**
+ OBA.co, obaco, or onebusaway.co is the service that powers deep links in the app,
+ along with other cross-regional services.
+ */
++ (instancetype)obacoJSONDataSource;
+
 - (id)initWithConfig:(OBADataSourceConfig*)config;
 
+/**
+ Creates an OBADataSourceConnection-conforming request that uses the specified HTTP method.
+
+ @param path The server path to request.
+ @param httpMethod The method used to send the request to the server. e.g. GET, POST, or DELETE.
+ @param args The arguments that are passed to the server.
+ @param completion The completion block.
+ @param progress The progress block.
+ @return A connection object.
+ */
 - (id<OBADataSourceConnection>)requestWithPath:(NSString*)path
+                                    HTTPMethod:(NSString*)httpMethod
                                       withArgs:(nullable NSDictionary*)args
                                completionBlock:(OBADataSourceCompletion) completion
                                  progressBlock:(nullable OBADataSourceProgress) progress;

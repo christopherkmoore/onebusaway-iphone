@@ -48,12 +48,21 @@
     return [[OBAJsonDataSource alloc] initWithConfig:googleMapsDataSourceConfig];
 }
 
++ (instancetype)obacoJSONDataSource {
+    OBADataSourceConfig *obacoConfig = [[OBADataSourceConfig alloc] initWithURL:[NSURL URLWithString:@"https://www.onebusaway.co"] args:nil];
+    return [[OBAJsonDataSource alloc] initWithConfig:obacoConfig];
+}
+
 #pragma mark - Public Methods
 
-- (id<OBADataSourceConnection>)requestWithPath:(NSString *)path withArgs:(NSDictionary *)args completionBlock:(OBADataSourceCompletion)completion progressBlock:(OBADataSourceProgress)progress {
-
+- (id<OBADataSourceConnection>)requestWithPath:(NSString*)path
+                                    HTTPMethod:(NSString*)httpMethod
+                                      withArgs:(nullable NSDictionary*)args
+                               completionBlock:(OBADataSourceCompletion) completion
+                                 progressBlock:(nullable OBADataSourceProgress) progress {
     NSURL *feedURL = [self.config constructURL:path withArgs:args];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:feedURL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:15];
+    request.HTTPMethod = httpMethod;
     [request setValue:@"gzip" forHTTPHeaderField:@"Accept-Encoding"];
 
     JsonUrlFetcherImpl *fetcher = [[JsonUrlFetcherImpl alloc] initWithCompletionBlock:completion progressBlock:progress];
@@ -61,6 +70,10 @@
     [fetcher loadRequest:request];
 
     return fetcher;
+}
+
+- (id<OBADataSourceConnection>)requestWithPath:(NSString *)path withArgs:(NSDictionary *)args completionBlock:(OBADataSourceCompletion)completion progressBlock:(OBADataSourceProgress)progress {
+    return [self requestWithPath:path HTTPMethod:@"GET" withArgs:args completionBlock:completion progressBlock:progress];
 }
 
 - (void)cancelOpenConnections {

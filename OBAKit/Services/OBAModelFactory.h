@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)modelFactory;
 
+- (NSURL*)getURLFromAlarmCreationWithJSON:(id)jsonDictionary error:(NSError**)error;
+
 - (OBAListWithRangeAndReferencesV2*) getRoutesV2FromJSON:(NSDictionary*)jsonArray error:(NSError**)error;
 
 - (OBAEntryWithReferencesV2*) getStopFromJSON:(NSDictionary*)jsonDictionary error:(NSError**)error;

@@ -52,7 +52,7 @@ extern NSString * const OBAAgenciesWithCoverageAPIPath;
 @property (nonatomic, strong) OBAJsonDataSource *obaJsonDataSource;
 @property (nonatomic, strong) OBAJsonDataSource *obaRegionJsonDataSource;
 @property (nonatomic, strong) OBAJsonDataSource *googleMapsJsonDataSource;
-@property (nonatomic, strong) OBAJsonDataSource *googlePlacesJsonDataSource;
+@property (nonatomic, strong) OBAJsonDataSource *obacoJsonDataSource;
 @property (nonatomic, strong) OBALocationManager *locationManager;
 
 /**
@@ -149,6 +149,31 @@ extern NSString * const OBAAgenciesWithCoverageAPIPath;
  @return A promise that resolves to an MKPolyline object.
  */
 - (AnyPromise*)requestShapeForID:(NSString*)shapeID;
+
+/**
+ Registers an alarm callback with the user's regional OneBusAway server. The callback is 
+ received by the onebusaway.co service, which in turn broadcasts a push notification to
+ the user.
+
+ @param arrivalDeparture        The arrival and departure object that the user wants to receive alerts on.
+ @param region                  The region where the alarm will be created.
+ @param secondsBeforeDeparture  The number of seconds before departure that the push notification should be sent out.
+ @return A promise that resolves to an NSURL that the user can use to remove the alarm (by `DELETE`ing that URL).
+ */
+- (AnyPromise*)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture;
+
+/**
+ Makes an asynchronous request to create an alarm callback with the user's regional
+ OneBusAway server. The callback is received by the onebusaway.co service, which in
+ turn broadcasts a push notification to the user.
+
+ @param arrivalDeparture        The arrival and departure object that the user wants to receive alerts on.
+ @param region                  The region where the alarm will be created.
+ @param secondsBeforeDeparture  The number of seconds before departure that the push notification should be sent out.
+ @param completion The block to be called once the request completes, this is always executed on the main thread.
+ @return The OBAModelServiceRequest object that allows request cancellation
+ */
+- (id<OBAModelServiceRequest>)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture completionBlock:(OBADataSourceCompletion)completion;
 
 /**
  *  Makes an asynchronous request to fetch the current server time.

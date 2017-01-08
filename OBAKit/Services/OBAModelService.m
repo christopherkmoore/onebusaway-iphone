@@ -173,6 +173,32 @@ static const CLLocationAccuracy kRegionalRadius = 40000;
     }];
 }
 
+#pragma mark - Alarms
+
+- (AnyPromise*)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture {
+    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
+        [self requestAlarmForArrivalAndDeparture:arrivalDeparture region:region secondsBeforeDeparture:secondsBeforeDeparture completionBlock:^(id responseData, NSUInteger responseCode, NSError *error) {
+            if (responseData) {
+                // TODO: decode the response data into an NSURL that can be DELETE'd.
+                resolve(responseData);
+            }
+            else {
+                resolve(error);
+            }
+        }];
+    }];
+}
+
+- (id<OBAModelServiceRequest>)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture completionBlock:(OBADataSourceCompletion)completion {
+    return [self request:self.obacoJsonDataSource
+                     url:[NSString stringWithFormat:@"/regions/%@/alarms", @(region.identifier)]
+              HTTPMethod:@"POST"
+                    args:@{@"seconds_before": @(secondsBeforeDeparture)}
+                selector:@selector(getURLFromAlarmCreationWithJSON:error:)
+         completionBlock:completion
+           progressBlock:nil];
+}
+
 #pragma mark - Old School Requests
 
 - (id<OBAModelServiceRequest>)requestCurrentTimeWithCompletionBlock:(OBADataSourceCompletion)completion {
@@ -463,9 +489,13 @@ static const CLLocationAccuracy kRegionalRadius = 40000;
 }
 
 - (OBAModelServiceRequest *)request:(OBAJsonDataSource *)source url:(NSString *)url args:(NSDictionary *)args selector:(SEL)selector completionBlock:(OBADataSourceCompletion)completion progressBlock:(OBADataSourceProgress)progress {
+    return [self request:source url:url HTTPMethod:@"GET" args:args selector:selector completionBlock:completion progressBlock:progress];
+}
+
+- (OBAModelServiceRequest *)request:(OBAJsonDataSource *)source url:(NSString *)url HTTPMethod:(NSString*)HTTPMethod args:(NSDictionary *)args selector:(SEL)selector completionBlock:(OBADataSourceCompletion)completion progressBlock:(OBADataSourceProgress)progress {
     OBAModelServiceRequest *request = [self request:source selector:selector];
 
-    request.connection = [source requestWithPath:url withArgs:args completionBlock:^(id jsonData, NSUInteger responseCode, NSError *error) {
+    request.connection = [source requestWithPath:url HTTPMethod:HTTPMethod withArgs:args completionBlock:^(id jsonData, NSUInteger responseCode, NSError *error) {
         [request processData:jsonData withError:error responseCode:responseCode completionBlock:completion];
     } progressBlock:progress];
     return request;

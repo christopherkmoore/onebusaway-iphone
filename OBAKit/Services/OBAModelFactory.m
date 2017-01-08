@@ -94,6 +94,10 @@ static NSString * const kReferences = @"references";
     return modelFactory;
 }
 
+- (NSURL*)getURLFromAlarmCreationWithJSON:(id)jsonDictionary error:(NSError**)error {
+    return [NSURL URLWithString:@"http://www.example.com"];
+}
+
 - (OBAEntryWithReferencesV2*) getStopFromJSON:(NSDictionary*)jsonDictionary error:(NSError**)error {
     
     OBAEntryWithReferencesV2 * entry = [[OBAEntryWithReferencesV2 alloc] initWithReferences:_references];
