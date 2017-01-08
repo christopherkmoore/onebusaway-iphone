@@ -105,6 +105,11 @@ typedef NS_ENUM(NSUInteger, OBAArrivalDepartureState) {
 - (OBADepartureStatus)departureStatus;
 
 /**
+ time, in ms since the unix epoch, of midnight for start of the service date for the trip
+ */
+@property(nonatomic,assign) long long serviceDate;
+
+/**
  How far off is this vehicle from its predicted, scheduled time?
 
  @return `NaN` when real time data is unavailable. Negative is early, positive is delayed.

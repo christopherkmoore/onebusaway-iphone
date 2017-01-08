@@ -190,10 +190,20 @@ static const CLLocationAccuracy kRegionalRadius = 40000;
 }
 
 - (id<OBAModelServiceRequest>)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture completionBlock:(OBADataSourceCompletion)completion {
+
+    NSDictionary *params = @{
+                             @"seconds_before": @(secondsBeforeDeparture),
+                             @"stop_id":        arrivalDeparture.stopId,
+                             @"trip_id":        arrivalDeparture.tripId,
+                             @"service_date":   @(arrivalDeparture.serviceDate),
+                             @"vehicle_id":     arrivalDeparture.tripStatus.vehicleId,
+                             @"stop_sequence":  @(arrivalDeparture.stopSequence)
+                            };
+
     return [self request:self.obacoJsonDataSource
                      url:[NSString stringWithFormat:@"/regions/%@/alarms", @(region.identifier)]
               HTTPMethod:@"POST"
-                    args:@{@"seconds_before": @(secondsBeforeDeparture)}
+                    args:params
                 selector:@selector(getURLFromAlarmCreationWithJSON:error:)
          completionBlock:completion
            progressBlock:nil];
