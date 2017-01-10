@@ -19,6 +19,7 @@
 #import "OneBusAway-Swift.h"
 #import "OBATimelineBarRow.h"
 #import "OBAAnimation.h"
+#import "OBAPushManager.h"
 @import Masonry;
 @import MarqueeLabel;
 
@@ -111,7 +112,13 @@ static NSTimeInterval const kRefreshTimeInterval = 30;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadData:)];
+
+
+    self.navigationItem.rightBarButtonItems =
+        @[
+          [[UIBarButtonItem alloc] initWithTitle:@"NOTE" style:UIBarButtonItemStylePlain target:self action:@selector(registerAlarm:)],
+          [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadData:)]
+        ];
 
     self.view.backgroundColor = [UIColor whiteColor];
 
@@ -223,6 +230,27 @@ static NSTimeInterval const kRefreshTimeInterval = 30;
 
     // And then reload remote data.
     [self reloadData:nil];
+}
+
+#pragma mark - Actions
+
+- (void)registerAlarm:(id)sender {
+
+    [[OBAPushManager pushManager] requestUserPushNotificationID].then(^(NSString *pushNotificationID) {
+        return [self.modelService requestAlarmForArrivalAndDeparture:self.arrivalAndDeparture region:self.modelDAO.currentRegion secondsBeforeDeparture:600 userPushNotificationID:pushNotificationID];
+    }).then(^(NSURL *cancelURL) {
+
+        NSLog(@"");
+
+    }).catch(^(NSError *error) {
+
+        NSLog(@"");
+
+    }).always(^{
+
+        NSLog(@"");
+
+    });
 }
 
 #pragma mark - Timer/Refresh Control

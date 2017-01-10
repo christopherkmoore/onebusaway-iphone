@@ -175,9 +175,9 @@ static const CLLocationAccuracy kRegionalRadius = 40000;
 
 #pragma mark - Alarms
 
-- (AnyPromise*)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture {
+- (AnyPromise*)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture userPushNotificationID:(NSString*)userPushNotificationID {
     return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        [self requestAlarmForArrivalAndDeparture:arrivalDeparture region:region secondsBeforeDeparture:secondsBeforeDeparture completionBlock:^(id responseData, NSUInteger responseCode, NSError *error) {
+        [self requestAlarmForArrivalAndDeparture:arrivalDeparture region:region secondsBeforeDeparture:secondsBeforeDeparture userPushNotificationID:userPushNotificationID completionBlock:^(id responseData, NSUInteger responseCode, NSError *error) {
             if (responseData) {
                 // TODO: decode the response data into an NSURL that can be DELETE'd.
                 resolve(responseData);
@@ -189,7 +189,7 @@ static const CLLocationAccuracy kRegionalRadius = 40000;
     }];
 }
 
-- (id<OBAModelServiceRequest>)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture completionBlock:(OBADataSourceCompletion)completion {
+- (id<OBAModelServiceRequest>)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture userPushNotificationID:(NSString*)userPushNotificationID completionBlock:(OBADataSourceCompletion)completion {
 
     NSDictionary *params = @{
                              @"seconds_before": @(secondsBeforeDeparture),
@@ -197,7 +197,8 @@ static const CLLocationAccuracy kRegionalRadius = 40000;
                              @"trip_id":        arrivalDeparture.tripId,
                              @"service_date":   @(arrivalDeparture.serviceDate),
                              @"vehicle_id":     arrivalDeparture.tripStatus.vehicleId,
-                             @"stop_sequence":  @(arrivalDeparture.stopSequence)
+                             @"stop_sequence":  @(arrivalDeparture.stopSequence),
+                             @"user_push_id":   userPushNotificationID
                             };
 
     return [self request:self.obacoJsonDataSource

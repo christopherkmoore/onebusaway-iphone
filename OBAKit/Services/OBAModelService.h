@@ -263,9 +263,11 @@ extern NSString * const OBAAgenciesWithCoverageAPIPath;
  @param arrivalDeparture        The arrival and departure object that the user wants to receive alerts on.
  @param region                  The region where the alarm will be created.
  @param secondsBeforeDeparture  The number of seconds before departure that the push notification should be sent out.
+ @param userPushNotificationID  The unique identifier for the user for them to receive push notifications. Get it from `[OBAPushManager pushManager].pushNotificationUserID`.
+
  @return A promise that resolves to an NSURL that the user can use to remove the alarm (by `DELETE`ing that URL).
  */
-- (AnyPromise*)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture;
+- (AnyPromise*)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture userPushNotificationID:(NSString*)userPushNotificationID;
 
 /**
  Makes an asynchronous request to create an alarm callback with the user's regional
@@ -275,10 +277,12 @@ extern NSString * const OBAAgenciesWithCoverageAPIPath;
  @param arrivalDeparture        The arrival and departure object that the user wants to receive alerts on.
  @param region                  The region where the alarm will be created.
  @param secondsBeforeDeparture  The number of seconds before departure that the push notification should be sent out.
+ @param userPushNotificationID  The unique identifier for the user for them to receive push notifications. Get it from `[OBAPushManager pushManager].pushNotificationUserID`.
  @param completion The block to be called once the request completes, this is always executed on the main thread.
+
  @return The OBAModelServiceRequest object that allows request cancellation
  */
-- (id<OBAModelServiceRequest>)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture completionBlock:(OBADataSourceCompletion)completion;
+- (id<OBAModelServiceRequest>)requestAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)arrivalDeparture region:(OBARegionV2*)region secondsBeforeDeparture:(NSTimeInterval)secondsBeforeDeparture userPushNotificationID:(NSString*)userPushNotificationID completionBlock:(OBADataSourceCompletion)completion;
 
 #pragma mark - Current Time
 

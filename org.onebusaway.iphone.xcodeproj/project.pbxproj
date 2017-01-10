@@ -171,6 +171,7 @@
 		934198CD1DB0C578004BBBB7 /* OBAKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 934198CA1DB0C56D004BBBB7 /* OBAKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		934198D71DB0C886004BBBB7 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 934198D61DB0C886004BBBB7 /* Launch Screen.storyboard */; };
 		934C48AF1E2177BD00B5FAC8 /* OneSignal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 934C48AE1E2177BD00B5FAC8 /* OneSignal.framework */; };
+		934C48BB1E25676200B5FAC8 /* OBAPushManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 934C48BA1E25676200B5FAC8 /* OBAPushManager.m */; };
 		93528AAE1C8D50D200783E9A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93528AAD1C8D50D200783E9A /* MapKit.framework */; };
 		93528AB11C8D517100783E9A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93528AB01C8D517100783E9A /* CloudKit.framework */; };
 		9353FF921E08E70A00B7A5C3 /* VehicleMapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9353FF911E08E70A00B7A5C3 /* VehicleMapController.swift */; };
@@ -505,6 +506,8 @@
 		934445F81AB105FB005B3333 /* capitolhill.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = capitolhill.gpx; sourceTree = "<group>"; };
 		9347860D1D3453E9002A5627 /* sandiego.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sandiego.gpx; sourceTree = "<group>"; };
 		934C48AE1E2177BD00B5FAC8 /* OneSignal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OneSignal.framework; path = Carthage/Build/iOS/OneSignal.framework; sourceTree = "<group>"; };
+		934C48B91E25676200B5FAC8 /* OBAPushManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBAPushManager.h; sourceTree = "<group>"; };
+		934C48BA1E25676200B5FAC8 /* OBAPushManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBAPushManager.m; sourceTree = "<group>"; };
 		93528AAD1C8D50D200783E9A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		93528AAF1C8D50E900783E9A /* OneBusAway.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = OneBusAway.entitlements; path = OneBusAway/Resources/OneBusAway.entitlements; sourceTree = "<group>"; };
 		93528AB01C8D517100783E9A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -603,6 +606,7 @@
 				93528AAF1C8D50E900783E9A /* OneBusAway.entitlements */,
 				93631E4A1604F96800CB7209 /* OBAApplicationDelegate.h */,
 				93631E4B1604F96800CB7209 /* OBAApplicationDelegate.m */,
+				934C48B81E25673200B5FAC8 /* push_notifications */,
 				934198261DB0C1CA004BBBB7 /* utilities */,
 				934197F11DB0C1BA004BBBB7 /* controls */,
 				934197EF1DB0C1AA004BBBB7 /* protocols */,
@@ -1387,6 +1391,16 @@
 			path = gpx_files;
 			sourceTree = "<group>";
 		};
+		934C48B81E25673200B5FAC8 /* push_notifications */ = {
+			isa = PBXGroup;
+			children = (
+				934C48B91E25676200B5FAC8 /* OBAPushManager.h */,
+				934C48BA1E25676200B5FAC8 /* OBAPushManager.m */,
+			);
+			name = push_notifications;
+			path = OneBusAway/push_notifications;
+			sourceTree = "<group>";
+		};
 		9358CD9F1DEA19BA00132CDE /* helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1688,6 +1702,7 @@
 				934198181DB0C1BA004BBBB7 /* OBALabelActivityIndicatorView.m in Sources */,
 				930AFE961DD11ECB0092AE82 /* OBAWalkableRow.m in Sources */,
 				934197961DB0C140004BBBB7 /* OBAStaticTableViewController+Builders.m in Sources */,
+				934C48BB1E25676200B5FAC8 /* OBAPushManager.m in Sources */,
 				9327DEF91E023BD400502F06 /* OBAArrivalDepartureRow.m in Sources */,
 				9341979B1DB0C140004BBBB7 /* OBATextFieldCell.m in Sources */,
 				931E3A0E1DD566810064D680 /* AFMSlidingCell.m in Sources */,

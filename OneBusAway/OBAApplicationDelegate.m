@@ -19,10 +19,9 @@
 @import GoogleAnalytics;
 @import OBAKit;
 @import SVProgressHUD;
-@import OneSignal;
 
 #import "OBANavigationTargetAware.h"
-
+#import "OBAPushManager.h"
 #import "OBASearchController.h"
 #import "OBAStopViewController.h"
 
@@ -122,9 +121,7 @@
     // Register a background handler with the model service
     [OBAModelService addBackgroundExecutor:self];
 
-    [OneSignal initWithLaunchOptions:launchOptions appId:[OBAApplication sharedApplication].oneSignalAPIKey handleNotificationAction:^(OSNotificationOpenedResult *result) {
-        //
-    } settings:@{kOSSettingsKeyAutoPrompt: @(NO)}];
+    [[OBAPushManager pushManager] startWithLaunchOptions:launchOptions APIKey:[OBAApplication sharedApplication].oneSignalAPIKey];
 
     // Configure the Apptentive feedback system
     [Apptentive sharedConnection].APIKey = [OBAApplication sharedApplication].apptentiveAPIKey;
