@@ -49,6 +49,7 @@ NSString * const OBAPushNotificationPushTokenDefaultsKey = @"OBAPushNotification
             resolve(pushID);
         }
         else {
+            // setting this twice will overwrite the first place it's set.
             [OneSignal IdsAvailable:^(NSString* userId, NSString* pushToken) {
                 [[NSUserDefaults standardUserDefaults] setObject:userId forKey:OBAPushNotificationUserIdDefaultsKey];
                 [[NSUserDefaults standardUserDefaults] setObject:pushToken forKey:OBAPushNotificationPushTokenDefaultsKey];
