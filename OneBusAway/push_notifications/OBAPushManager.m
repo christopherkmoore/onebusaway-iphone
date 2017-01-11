@@ -11,7 +11,9 @@
 NSString * const OBAPushNotificationUserIdDefaultsKey = @"OBAPushNotificationUserIdDefaultsKey";
 NSString * const OBAPushNotificationPushTokenDefaultsKey = @"OBAPushNotificationPushTokenDefaultsKey";
 
-@implementation OBAPushManager
+@implementation OBAPushManager {
+    PMKResolver resolver;
+}
 
 #pragma mark - Setup Stuff
 
@@ -28,8 +30,10 @@ NSString * const OBAPushNotificationPushTokenDefaultsKey = @"OBAPushNotification
 - (void)startWithLaunchOptions:(NSDictionary*)launchOptions APIKey:(NSString*)APIKey {
 
     [OneSignal IdsAvailable:^(NSString* userId, NSString* pushToken) {
-        [[NSUserDefaults standardUserDefaults] setObject:userId forKey:OBAPushNotificationUserIdDefaultsKey];
-        [[NSUserDefaults standardUserDefaults] setObject:pushToken forKey:OBAPushNotificationPushTokenDefaultsKey];
+        [self.class storeUserID:userId pushToken:pushToken];
+        if (self->resolver) {
+            self->resolver(userId);
+        }
     }];
 
     [OneSignal initWithLaunchOptions:launchOptions appId:APIKey handleNotificationAction:^(OSNotificationOpenedResult *result) {
@@ -42,44 +46,25 @@ NSString * const OBAPushNotificationPushTokenDefaultsKey = @"OBAPushNotification
 #pragma mark - Promises
 
 - (AnyPromise*)requestUserPushNotificationID {
-    NSString *pushID = self.pushNotificationUserID;
+    AnyPromise *promise = [[AnyPromise alloc] initWithResolver:&resolver];
 
-    return [AnyPromise promiseWithResolverBlock:^(PMKResolver resolve) {
-        if (pushID) {
-            resolve(pushID);
-        }
-        else {
-            // setting this twice will overwrite the first place it's set.
-            [OneSignal IdsAvailable:^(NSString* userId, NSString* pushToken) {
-                [[NSUserDefaults standardUserDefaults] setObject:userId forKey:OBAPushNotificationUserIdDefaultsKey];
-                [[NSUserDefaults standardUserDefaults] setObject:pushToken forKey:OBAPushNotificationPushTokenDefaultsKey];
-            }];
-            [OneSignal registerForPushNotifications];
-        }
-//        [CLLocationManager until:^BOOL(CLLocation *location) {
-//            iterations += 1;
-//            if (iterations >= 5) {
-//                return YES;
-//            }
-//            else {
-//                return location.horizontalAccuracy <= kCLLocationAccuracyNearestTenMeters;
-//            }
-//        }].thenInBackground(^(CLLocation* currentLocation) {
-//            MKPlacemark *sourcePlacemark = [self.class placemarkForCoordinate:currentLocation.coordinate];
-//            MKPlacemark *destinationPlacemark = [self.class placemarkForCoordinate:destination];
-//            MKDirections *directions = [self.class walkingDirectionsFrom:sourcePlacemark to:destinationPlacemark];
-//            return [directions calculateETA];
-//        }).then(^(MKETAResponse* ETA) {
-//            resolve(ETA);
-//        }).catch(^(NSError *error) {
-//            resolve(error);
-//        }).always(^{
-//            iterations = 0;
-//        });
-    }];
+    NSString *pushUserID = self.pushNotificationUserID;
+    if (pushUserID) {
+        resolver(pushUserID);
+    }
+    else {
+        [OneSignal registerForPushNotifications];
+    }
+
+    return promise;
 }
 
-#pragma mark - Public Properties
+#pragma mark - User Identity Tokens
+
++ (void)storeUserID:(NSString*)userID pushToken:(NSString*)pushToken {
+    [[NSUserDefaults standardUserDefaults] setObject:userID forKey:OBAPushNotificationUserIdDefaultsKey];
+    [[NSUserDefaults standardUserDefaults] setObject:pushToken forKey:OBAPushNotificationPushTokenDefaultsKey];
+}
 
 - (NSString*)pushNotificationUserID {
     return [[NSUserDefaults standardUserDefaults] stringForKey:OBAPushNotificationUserIdDefaultsKey];
