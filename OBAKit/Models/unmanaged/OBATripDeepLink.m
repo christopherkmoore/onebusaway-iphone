@@ -8,9 +8,8 @@
 
 #import <OBAKit/OBATripDeepLink.h>
 #import <OBAKit/OBAURLHelpers.h>
+#import <OBAKit/OBACommon.h>
 #import <OBAKit/NSObject+OBADescription.h>
-
-NSString * const OBADeepLinkURL = @"https://www.onebusaway.co";
 
 @implementation OBATripDeepLink
 
@@ -120,7 +119,7 @@ NSString * const OBADeepLinkURL = @"https://www.onebusaway.co";
 - (NSURL*)deepLinkURL {
     NSString *stopID = [OBAURLHelpers escapePathVariable:self.stopID];
 
-    NSURLComponents *URLComponents = [NSURLComponents componentsWithString:OBADeepLinkURL];
+    NSURLComponents *URLComponents = [NSURLComponents componentsWithString:OBADeepLinkServerAddress];
     URLComponents.path = [NSString stringWithFormat:@"/regions/%@/stops/%@/trips", @(self.regionIdentifier), stopID];
 
     URLComponents.queryItems = @[

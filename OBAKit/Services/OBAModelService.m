@@ -506,9 +506,10 @@ static const CLLocationAccuracy kRegionalRadius = 40000;
 - (OBAModelServiceRequest *)request:(OBAJsonDataSource *)source url:(NSString *)url HTTPMethod:(NSString*)HTTPMethod args:(NSDictionary *)args selector:(SEL)selector completionBlock:(OBADataSourceCompletion)completion progressBlock:(OBADataSourceProgress)progress {
     OBAModelServiceRequest *request = [self request:source selector:selector];
 
-    request.connection = [source requestWithPath:url HTTPMethod:HTTPMethod withArgs:args completionBlock:^(id jsonData, NSUInteger responseCode, NSError *error) {
+    request.connection = [source requestWithPath:url HTTPMethod:HTTPMethod queryParameters:args formBody:nil completionBlock:^(id jsonData, NSUInteger responseCode, NSError *error) {
         [request processData:jsonData withError:error responseCode:responseCode completionBlock:completion];
     } progressBlock:progress];
+
     return request;
 }
 

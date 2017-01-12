@@ -16,6 +16,8 @@
 
 #import <OBAKit/OBAJsonDataSource.h>
 #import <OBAKit/JsonUrlFetcherImpl.h>
+#import <OBAKit/OBACommon.h>
+#import <OBAKit/NSDictionary+OBAAdditions.h>
 
 @interface OBAJsonDataSource ()
 @property(nonatomic,strong) NSHashTable *openConnections;
@@ -49,7 +51,7 @@
 }
 
 + (instancetype)obacoJSONDataSource {
-    OBADataSourceConfig *obacoConfig = [[OBADataSourceConfig alloc] initWithURL:[NSURL URLWithString:@"https://www.onebusaway.co"] args:nil];
+    OBADataSourceConfig *obacoConfig = [[OBADataSourceConfig alloc] initWithURL:[NSURL URLWithString:OBADeepLinkServerAddress] args:nil];
     return [[OBAJsonDataSource alloc] initWithConfig:obacoConfig];
 }
 
