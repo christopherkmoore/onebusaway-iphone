@@ -204,7 +204,8 @@ static const CLLocationAccuracy kRegionalRadius = 40000;
     return [self request:self.obacoJsonDataSource
                      url:[NSString stringWithFormat:@"/regions/%@/alarms", @(region.identifier)]
               HTTPMethod:@"POST"
-                    args:params
+             queryParams:nil
+                formBody:params
                 selector:@selector(getURLFromAlarmCreationWithJSON:error:)
          completionBlock:completion
            progressBlock:nil];
@@ -500,13 +501,13 @@ static const CLLocationAccuracy kRegionalRadius = 40000;
 }
 
 - (OBAModelServiceRequest *)request:(OBAJsonDataSource *)source url:(NSString *)url args:(NSDictionary *)args selector:(SEL)selector completionBlock:(OBADataSourceCompletion)completion progressBlock:(OBADataSourceProgress)progress {
-    return [self request:source url:url HTTPMethod:@"GET" args:args selector:selector completionBlock:completion progressBlock:progress];
+    return [self request:source url:url HTTPMethod:@"GET" queryParams:args formBody:nil selector:selector completionBlock:completion progressBlock:progress];
 }
 
-- (OBAModelServiceRequest *)request:(OBAJsonDataSource *)source url:(NSString *)url HTTPMethod:(NSString*)HTTPMethod args:(NSDictionary *)args selector:(SEL)selector completionBlock:(OBADataSourceCompletion)completion progressBlock:(OBADataSourceProgress)progress {
+- (OBAModelServiceRequest *)request:(OBAJsonDataSource *)source url:(NSString *)url HTTPMethod:(NSString*)HTTPMethod queryParams:(NSDictionary *)queryParams formBody:(NSDictionary *)formBody selector:(SEL)selector completionBlock:(OBADataSourceCompletion)completion progressBlock:(OBADataSourceProgress)progress {
     OBAModelServiceRequest *request = [self request:source selector:selector];
 
-    request.connection = [source requestWithPath:url HTTPMethod:HTTPMethod queryParameters:args formBody:nil completionBlock:^(id jsonData, NSUInteger responseCode, NSError *error) {
+    request.connection = [source requestWithPath:url HTTPMethod:HTTPMethod queryParameters:queryParams formBody:formBody completionBlock:^(id jsonData, NSUInteger responseCode, NSError *error) {
         [request processData:jsonData withError:error responseCode:responseCode completionBlock:completion];
     } progressBlock:progress];
 

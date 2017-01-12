@@ -27,7 +27,7 @@ NSString * const kApplicationShortcutBookmarks = @"org.onebusaway.iphone.shortcu
 NSString * const OBAOptInToTrackingDefaultsKey = @"OBAOptInToTrackingDefaultsKey";
 NSString * const OBAAllowReviewPromptsDefaultsKey = @"OBAAllowReviewPromptsDefaultsKey";
 
-NSString * const OBADeepLinkServerAddress = @"http://452b3ca7.ngrok.io"; // TODO: put me back! https://www.onebusaway.co
+NSString * const OBADeepLinkServerAddress = @"https://www.onebusaway.co";
 
 const NSInteger kOBAErrorDuplicateEntity = 1000;
 const NSInteger kOBAErrorMissingFieldInData = 1001;

@@ -27,7 +27,9 @@ NSString * const OBAPushNotificationPushTokenDefaultsKey = @"OBAPushNotification
     return pushManager;
 }
 
-- (void)startWithLaunchOptions:(NSDictionary*)launchOptions APIKey:(NSString*)APIKey {
+- (void)startWithLaunchOptions:(NSDictionary*)launchOptions delegate:(id<OBAPushManagerDelegate>)delegate APIKey:(NSString*)APIKey {
+
+    self.delegate = delegate;
 
     [OneSignal IdsAvailable:^(NSString* userId, NSString* pushToken) {
         [self.class storeUserID:userId pushToken:pushToken];
@@ -37,10 +39,8 @@ NSString * const OBAPushNotificationPushTokenDefaultsKey = @"OBAPushNotification
     }];
 
     [OneSignal initWithLaunchOptions:launchOptions appId:APIKey handleNotificationAction:^(OSNotificationOpenedResult *result) {
-
-        // TODO!
-
-    } settings:@{kOSSettingsKeyAutoPrompt: @(NO)}];
+        [self.delegate pushManager:self notificationReceivedWithTitle:@"Time to leave!" message:result.notification.payload.body];
+    } settings:@{kOSSettingsKeyAutoPrompt: @(NO), kOSSettingsKeyInAppAlerts: @(YES)}];
 }
 
 #pragma mark - Promises

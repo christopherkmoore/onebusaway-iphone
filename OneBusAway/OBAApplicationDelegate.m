@@ -35,7 +35,7 @@
 #import "OBADrawerUI.h"
 #import "EXTScope.h"
 
-@interface OBAApplicationDelegate () <OBABackgroundTaskExecutor, OBARegionHelperDelegate, RegionListDelegate>
+@interface OBAApplicationDelegate () <OBABackgroundTaskExecutor, OBARegionHelperDelegate, RegionListDelegate, OBAPushManagerDelegate>
 @property(nonatomic,strong) UINavigationController *regionNavigationController;
 @property(nonatomic,strong) RegionListViewController *regionListViewController;
 @property(nonatomic,strong) id regionObserver;
@@ -121,7 +121,7 @@
     // Register a background handler with the model service
     [OBAModelService addBackgroundExecutor:self];
 
-    [[OBAPushManager pushManager] startWithLaunchOptions:launchOptions APIKey:[OBAApplication sharedApplication].oneSignalAPIKey];
+    [[OBAPushManager pushManager] startWithLaunchOptions:launchOptions delegate:self APIKey:[OBAApplication sharedApplication].oneSignalAPIKey];
 
     // Configure the Apptentive feedback system
     [Apptentive sharedConnection].APIKey = [OBAApplication sharedApplication].apptentiveAPIKey;
@@ -267,6 +267,12 @@
     if (!reachability.isReachable) {
         [AlertPresenter showWarning:NSLocalizedString(@"msg_cannot_connect_to_the_internet", @"Reachability alert title") body:NSLocalizedString(@"msg_check_internet_connection", @"Reachability alert body")];
     }
+}
+
+#pragma mark - OBAPushManagerDelegate
+
+- (void)pushManager:(OBAPushManager*)pushManager notificationReceivedWithTitle:(NSString*)title message:(NSString*)message {
+    [AlertPresenter showSuccess:title body:message];
 }
 
 #pragma mark - RegionListDelegate
