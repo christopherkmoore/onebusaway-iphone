@@ -22,6 +22,8 @@
 #import "OBAPushManager.h"
 @import Masonry;
 @import MarqueeLabel;
+@import SVProgressHUD;
+@import OBAKit;
 
 static CGFloat const kCollapsedMapHeight = 225.f;
 static CGFloat const kExpandedMapHeight = 350.f;
@@ -235,21 +237,21 @@ static NSTimeInterval const kRefreshTimeInterval = 30;
 #pragma mark - Actions
 
 - (void)registerAlarm:(id)sender {
+    NSTimeInterval secondsBeforeDeparture = 600;
 
     [[OBAPushManager pushManager] requestUserPushNotificationID].then(^(NSString *pushNotificationID) {
-        return [self.modelService requestAlarmForArrivalAndDeparture:self.arrivalAndDeparture region:self.modelDAO.currentRegion secondsBeforeDeparture:600 userPushNotificationID:pushNotificationID];
+        [SVProgressHUD show];
+        return [self.modelService requestAlarmForArrivalAndDeparture:self.arrivalAndDeparture region:self.modelDAO.currentRegion secondsBeforeDeparture:secondsBeforeDeparture userPushNotificationID:pushNotificationID];
     }).then(^(NSURL *cancelURL) {
+        // TODO: store the cancelURL somewhere.
 
-        NSLog(@"");
+        NSString *body = [NSString stringWithFormat:NSLocalizedString(@"alarms.alarm_created_alert_body", @"The body of the non-modal alert that appears when a push notification alarm is registered."), @((NSUInteger)secondsBeforeDeparture / 60)];
 
+        [AlertPresenter showSuccess:NSLocalizedString(@"alarms.alarm_created_alert_title", @"The title of the non-modal alert displayed when a push notification alert is registered for a vehicle departure.") body:body];
     }).catch(^(NSError *error) {
-
-        NSLog(@"");
-
+        [AlertPresenter showWarning:OBAStrings.error body:error.localizedDescription];
     }).always(^{
-
-        NSLog(@"");
-
+        [SVProgressHUD dismiss];
     });
 }
 

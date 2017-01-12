@@ -37,16 +37,18 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Creates an OBADataSourceConnection-conforming request that uses the specified HTTP method.
 
- @param path The server path to request.
- @param httpMethod The method used to send the request to the server. e.g. GET, POST, or DELETE.
- @param args The arguments that are passed to the server.
- @param completion The completion block.
- @param progress The progress block.
+ @param path            The server path to request.
+ @param httpMethod      The method used to send the request to the server. e.g. GET, POST, or DELETE.
+ @param queryParameters The arguments that are passed to the server.
+ @param formBody        The form body. Only sent along for POST/PUT/PATCH requests.
+ @param completion      The completion block.
+ @param progress        The progress block.
  @return A connection object.
  */
 - (id<OBADataSourceConnection>)requestWithPath:(NSString*)path
                                     HTTPMethod:(NSString*)httpMethod
-                                      withArgs:(nullable NSDictionary*)args
+                               queryParameters:(nullable NSDictionary*)queryParameters
+                                      formBody:(nullable NSDictionary*)formBody
                                completionBlock:(OBADataSourceCompletion) completion
                                  progressBlock:(nullable OBADataSourceProgress) progress;
 

@@ -731,3 +731,9 @@
 
 /* An accessibility label for the map size toggle button on the Vehicle Map Controller. */
 "vehicle_map_controller.toggle_button_accessibility_label" = "Toggle Map Size";
+
+/* The title of the non-modal alert displayed when a push notification alert is registered for a vehicle departure. */
+"alarms.alarm_created_alert_title" = "Alarm Created";
+
+/* The body of the non-modal alert that appears when a push notification alarm is registered. */
+"alarms.alarm_created_alert_body" = "You will receive a notification %@ minutes before this vehicle departs.";

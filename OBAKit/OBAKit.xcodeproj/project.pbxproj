@@ -202,6 +202,8 @@
 		934196CF1DB0B369004BBBB7 /* OBAKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 934196CD1DB0B369004BBBB7 /* OBAKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		934196D31DB0C02F004BBBB7 /* NSDate+DateTools.h in Headers */ = {isa = PBXBuildFile; fileRef = 934196D11DB0C02F004BBBB7 /* NSDate+DateTools.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		934196D41DB0C02F004BBBB7 /* NSDate+DateTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 934196D21DB0C02F004BBBB7 /* NSDate+DateTools.m */; };
+		934C48C11E26C5AC00B5FAC8 /* NSDictionary+OBAAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 934C48BF1E26C5AC00B5FAC8 /* NSDictionary+OBAAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		934C48C21E26C5AC00B5FAC8 /* NSDictionary+OBAAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 934C48C01E26C5AC00B5FAC8 /* NSDictionary+OBAAdditions.m */; };
 		9358CDAE1DEA1AB000132CDE /* OBADepartureCellHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 9358CDAC1DEA1AB000132CDE /* OBADepartureCellHelpers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9358CDAF1DEA1AB000132CDE /* OBADepartureCellHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9358CDAD1DEA1AB000132CDE /* OBADepartureCellHelpers.m */; };
 		9358CDB21DEA242B00132CDE /* OBAUpcomingDeparture.h in Headers */ = {isa = PBXBuildFile; fileRef = 9358CDB01DEA242B00132CDE /* OBAUpcomingDeparture.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -424,6 +426,8 @@
 		934196CD1DB0B369004BBBB7 /* OBAKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBAKit.h; sourceTree = "<group>"; };
 		934196D11DB0C02F004BBBB7 /* NSDate+DateTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+DateTools.h"; sourceTree = "<group>"; };
 		934196D21DB0C02F004BBBB7 /* NSDate+DateTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+DateTools.m"; sourceTree = "<group>"; };
+		934C48BF1E26C5AC00B5FAC8 /* NSDictionary+OBAAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+OBAAdditions.h"; sourceTree = "<group>"; };
+		934C48C01E26C5AC00B5FAC8 /* NSDictionary+OBAAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+OBAAdditions.m"; sourceTree = "<group>"; };
 		9358CDAC1DEA1AB000132CDE /* OBADepartureCellHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBADepartureCellHelpers.h; sourceTree = "<group>"; };
 		9358CDAD1DEA1AB000132CDE /* OBADepartureCellHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OBADepartureCellHelpers.m; sourceTree = "<group>"; };
 		9358CDB01DEA242B00132CDE /* OBAUpcomingDeparture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OBAUpcomingDeparture.h; sourceTree = "<group>"; };
@@ -513,6 +517,8 @@
 				93B282C61DC68892005013D7 /* NSURLQueryItem+OBAAdditions.h */,
 				93B282C71DC68892005013D7 /* NSURLQueryItem+OBAAdditions.m */,
 				930AFE8F1DD0717A0092AE82 /* Array+Functional.swift */,
+				934C48BF1E26C5AC00B5FAC8 /* NSDictionary+OBAAdditions.h */,
+				934C48C01E26C5AC00B5FAC8 /* NSDictionary+OBAAdditions.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -804,6 +810,7 @@
 				934196B21DB0B0AF004BBBB7 /* OBAModelFactory.h in Headers */,
 				934196741DB0B099004BBBB7 /* OBASearch.h in Headers */,
 				9341967C1DB0B099004BBBB7 /* OBASituationV2.h in Headers */,
+				934C48C11E26C5AC00B5FAC8 /* NSDictionary+OBAAdditions.h in Headers */,
 				934196821DB0B099004BBBB7 /* OBAStopsForRouteV2.h in Headers */,
 				934196001DB0B099004BBBB7 /* OBACommon.h in Headers */,
 				934196101DB0B099004BBBB7 /* OBAReachability.h in Headers */,
@@ -1004,6 +1011,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				934196251DB0B099004BBBB7 /* OBASphericalGeometryLibrary.m in Sources */,
+				934C48C21E26C5AC00B5FAC8 /* NSDictionary+OBAAdditions.m in Sources */,
 				934196701DB0B099004BBBB7 /* OBAReportProblemWithTripV2.m in Sources */,
 				934196271DB0B099004BBBB7 /* OBANavigationTargetAnnotation.m in Sources */,
 				934196311DB0B099004BBBB7 /* OBAModelDAOUserPreferencesImpl.m in Sources */,
