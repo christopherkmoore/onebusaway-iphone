@@ -25,8 +25,6 @@
 
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(close)];
 
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Enable Push" style:UIBarButtonItemStylePlain target:self action:@selector(enablePush)];
-
     [self loadData];
 }
 
@@ -34,10 +32,6 @@
 
 - (void)close {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)enablePush {
-    [OneSignal registerForPushNotifications];
 }
 
 #pragma mark - Data Loading
