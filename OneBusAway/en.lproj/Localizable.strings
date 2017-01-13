@@ -737,3 +737,12 @@
 
 /* The body of the non-modal alert that appears when a push notification alarm is registered. */
 "alarms.alarm_created_alert_body" = "You will receive a notification %@ minutes before this vehicle departs.";
+
+/* The title of the alert controller that prompts the user about whether they really want to delete this alarm. */
+"alarms.confirm_deletion_alert_title" = "Are you sure you want to delete this alarm?";
+
+/* This is the button that confirms that the user really does want to delete their alarm. */
+"alarms.confirm_deletion_alert_delete_button" = "Delete Alarm";
+
+/* This is the button that cancels the alarm deletion. */
+"alarms.confirm_deletion_alert_cancel_button" = "Keep the Alarm";

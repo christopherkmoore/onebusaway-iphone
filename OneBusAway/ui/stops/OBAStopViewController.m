@@ -339,6 +339,9 @@ static NSInteger kStopsSectionTag = 101;
         [row setToggleBookmarkAction:^{
             [self toggleBookmarkActionForArrivalAndDeparture:dep];
         }];
+        [row setToggleAlarmAction:^{
+            [self toggleAlarmActionForArrivalAndDeparture:dep];
+        }];
         [row setShareAction:^{
             [self shareActionForArrivalAndDeparture:dep atIndexPath:[self indexPathForModel:dep]];
         }];
@@ -367,6 +370,20 @@ static NSInteger kStopsSectionTag = 101;
     }
 }
 
+- (void)toggleAlarmActionForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)dep {
+    if ([self hasAlarmForArrivalAndDeparture:dep]) {
+        [self promptToRemoveAlarmForArrivalAndDeparture:dep];
+    }
+    else {
+        // TODO!
+//        [self.tableView setEditing:NO animated:YES];
+//        OBABookmarkV2 *bookmark = [[OBABookmarkV2 alloc] initWithArrivalAndDeparture:dep region:self.modelDAO.currentRegion];
+//        OBAEditStopBookmarkViewController *editor = [[OBAEditStopBookmarkViewController alloc] initWithBookmark:bookmark];
+//        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:editor];
+//        [self.navigationController presentViewController:nav animated:YES completion:nil];
+    }
+}
+
 - (void)shareActionForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)dep atIndexPath:(NSIndexPath*)indexPath {
     OBAGuard(dep && indexPath) else {
         return;
@@ -390,6 +407,23 @@ static NSInteger kStopsSectionTag = 101;
     }
 
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+#pragma mark - Alarms
+
+- (BOOL)hasAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)dep {
+    return YES;
+}
+
+- (void)promptToRemoveAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)dep {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"alarms.confirm_deletion_alert_title", @"The title of the alert controller that prompts the user about whether they really want to delete this alarm.") message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alarms.confirm_deletion_alert_cancel_button", @"This is the button that cancels the alarm deletion.") style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alarms.confirm_deletion_alert_delete_button", @"This is the button that confirms that the user really does want to delete their alarm.") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
+        //
+    }]];
+
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - Bookmarks

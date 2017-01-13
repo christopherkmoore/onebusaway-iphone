@@ -17,6 +17,7 @@ static CGFloat const kSwipeButtonWidth = 80.f;
 @interface OBAClassicDepartureCell ()
 @property(nonatomic,strong) OBAClassicDepartureView *departureView;
 @property(nonatomic,strong,readonly) UIButton *bookmarkButton;
+@property(nonatomic,strong,readonly) UIButton *alarmButton;
 @property(nonatomic,strong,readonly) UIButton *shareButton;
 @end
 
@@ -46,6 +47,17 @@ static CGFloat const kSwipeButtonWidth = 80.f;
             button;
         });
 
+        _alarmButton = ({
+            UIButton *button = [OBAStackedButton buttonWithType:UIButtonTypeSystem];
+            [button addTarget:self action:@selector(toggleAlarm) forControlEvents:UIControlEventTouchUpInside];
+            button.titleLabel.font = [OBATheme footnoteFont];
+            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [button setImage:[UIImage imageNamed:@"bell"] forState:UIControlStateNormal];
+            button.tintColor = [UIColor blackColor];
+
+            button;
+        });
+
         _shareButton = ({
             UIButton *button = [OBAStackedButton buttonWithType:UIButtonTypeSystem];
             [button setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
@@ -69,6 +81,7 @@ static CGFloat const kSwipeButtonWidth = 80.f;
 
 - (void)addButtonsToContextMenu {
     [self addLeftButton:_bookmarkButton withWidth:kSwipeButtonWidth withTappedBlock:nil];
+    [self addCenterButton:_alarmButton withWidth:kSwipeButtonWidth withTappedBlock:nil];
     [self addRightButton:_shareButton withWidth:kSwipeButtonWidth withTappedBlock:nil];
 }
 
@@ -97,6 +110,13 @@ static CGFloat const kSwipeButtonWidth = 80.f;
 - (void)toggleBookmark {
     if ([self departureRow].toggleBookmarkAction) {
         [self departureRow].toggleBookmarkAction();
+    }
+    [self hideButtonViewAnimated:YES];
+}
+
+- (void)toggleAlarm {
+    if ([self departureRow].toggleAlarmAction) {
+        [self departureRow].toggleAlarmAction();
     }
     [self hideButtonViewAnimated:YES];
 }

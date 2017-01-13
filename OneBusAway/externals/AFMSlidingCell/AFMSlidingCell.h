@@ -22,11 +22,13 @@
 @interface AFMSlidingCell : UITableViewCell
 
 @property(nonatomic,assign,readonly) CGRect leftButtonFrame;
+@property(nonatomic,assign,readonly) CGRect centerButtonFrame;
 @property(nonatomic,assign,readonly) CGRect rightButtonFrame;
 
 @property (nonatomic, weak) id<AFMSlidingCellDelegate> delegate;
 
 - (void)addLeftButton:(UIButton *)button withWidth:(CGFloat)width withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock;
+- (void)addCenterButton:(UIButton *)button withWidth:(CGFloat)width withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock;
 - (void)addRightButton:(UIButton *)button withWidth:(CGFloat)width withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock;
 
 - (void)showButtonViewAnimated:(BOOL)animated;

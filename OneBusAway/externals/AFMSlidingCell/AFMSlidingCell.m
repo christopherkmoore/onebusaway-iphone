@@ -41,6 +41,12 @@ typedef NS_ENUM(NSUInteger, AFMSlidingCellState) {
     [self layoutIfNeeded];
 }
 
+- (void)addCenterButton:(UIButton *)button withWidth:(CGFloat)width withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock {
+    [self.buttonContainer addCenterButton:button withWidth:width withTappedBlock:tappedBlock];
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+}
+
 - (void)addRightButton:(UIButton *)button withWidth:(CGFloat)width withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock {
     [self.buttonContainer addRightButton:button withWidth:width withTappedBlock:tappedBlock];
     [self setNeedsLayout];
@@ -245,6 +251,10 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 
 - (CGRect)leftButtonFrame {
     return [self convertRect:self.buttonContainer.leftButton.frame fromView:self.buttonContainer];
+}
+
+- (CGRect)centerButtonFrame {
+    return [self convertRect:self.buttonContainer.centerButton.frame fromView:self.buttonContainer];
 }
 
 - (CGRect)rightButtonFrame {
