@@ -746,3 +746,7 @@
 
 /* This is the button that cancels the alarm deletion. */
 "alarms.confirm_deletion_alert_cancel_button" = "Keep the Alarm";
+
+"msg_remove_alarm" = "Delete Alarm";
+
+"msg_add_alarm" = "Add Alarm";

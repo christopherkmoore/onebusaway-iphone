@@ -107,6 +107,28 @@ static CGFloat const kSwipeButtonWidth = 80.f;
     [self.bookmarkButton setAccessibilityLabel:accessibilityLabel];
 }
 
+- (void)configureAlarmButtonForExistingAlarm:(BOOL)alarmExists {
+    UIColor *backgroundColor = nil;
+    NSString *title = nil;
+    NSString *accessibilityLabel = nil;
+
+    if (alarmExists) {
+        backgroundColor = [UIColor redColor];
+
+        title = NSLocalizedString(@"msg_remove",);
+        accessibilityLabel = NSLocalizedString(@"msg_remove_alarm",);
+    }
+    else {
+        backgroundColor = [UIColor greenColor];
+        title = NSLocalizedString(@"msg_add",);
+        accessibilityLabel = NSLocalizedString(@"msg_add_alarm",);
+    }
+
+    self.alarmButton.backgroundColor = backgroundColor;
+    [self.alarmButton setTitle:title forState:UIControlStateNormal];
+    [self.alarmButton setAccessibilityLabel:accessibilityLabel];
+}
+
 - (void)toggleBookmark {
     if ([self departureRow].toggleBookmarkAction) {
         [self departureRow].toggleBookmarkAction();
@@ -149,6 +171,7 @@ static CGFloat const kSwipeButtonWidth = 80.f;
     _tableRow = [tableRow copy];
 
     [self configureBookmarkButtonForExistingBookmark:[self departureRow].bookmarkExists];
+    [self configureAlarmButtonForExistingAlarm:[self departureRow].alarmExists];
 
     self.accessoryType = [self departureRow].accessoryType;
 
