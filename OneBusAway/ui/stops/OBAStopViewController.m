@@ -376,6 +376,7 @@ static NSInteger kStopsSectionTag = 101;
         [self promptToRemoveAlarmForArrivalAndDeparture:dep];
     }
     else {
+        
         // TODO!
 //        [self.tableView setEditing:NO animated:YES];
 //        OBABookmarkV2 *bookmark = [[OBABookmarkV2 alloc] initWithArrivalAndDeparture:dep region:self.modelDAO.currentRegion];
