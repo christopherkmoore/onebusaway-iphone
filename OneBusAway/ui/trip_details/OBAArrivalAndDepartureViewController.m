@@ -114,8 +114,6 @@ static NSTimeInterval const kRefreshTimeInterval = 30;
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-
-
     self.navigationItem.rightBarButtonItems =
         @[
           [[UIBarButtonItem alloc] initWithTitle:@"NOTE" style:UIBarButtonItemStylePlain target:self action:@selector(registerAlarm:)],

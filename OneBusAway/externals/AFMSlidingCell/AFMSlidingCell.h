@@ -26,8 +26,8 @@
 
 @property (nonatomic, weak) id<AFMSlidingCellDelegate> delegate;
 
-- (void)addFirstButton:(UIButton *)button withWidth:(CGFloat)width withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock;
-- (void)addSecondButton:(UIButton *)button withWidth:(CGFloat)width withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock;
+- (void)addLeftButton:(UIButton *)button withWidth:(CGFloat)width withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock;
+- (void)addRightButton:(UIButton *)button withWidth:(CGFloat)width withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock;
 
 - (void)showButtonViewAnimated:(BOOL)animated;
 - (void)hideButtonViewAnimated:(BOOL)animated;

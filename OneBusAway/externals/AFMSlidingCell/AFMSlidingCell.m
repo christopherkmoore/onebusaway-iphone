@@ -35,19 +35,13 @@ typedef NS_ENUM(NSUInteger, AFMSlidingCellState) {
 
 #pragma mark - Setting buttons
 
-- (void)addFirstButton:(UIButton *)button
-            withWidth:(CGFloat)width
-      withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock
-{
+- (void)addLeftButton:(UIButton *)button withWidth:(CGFloat)width withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock {
     [self.buttonContainer addLeftButton:button withWidth:width withTappedBlock:tappedBlock];
     [self setNeedsLayout];
     [self layoutIfNeeded];
 }
 
-- (void)addSecondButton:(UIButton *)button
-             withWidth:(CGFloat)width
-       withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock
-{
+- (void)addRightButton:(UIButton *)button withWidth:(CGFloat)width withTappedBlock:(void (^)(AFMSlidingCell *))tappedBlock {
     [self.buttonContainer addRightButton:button withWidth:width withTappedBlock:tappedBlock];
     [self setNeedsLayout];
     [self layoutIfNeeded];
