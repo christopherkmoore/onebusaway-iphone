@@ -411,6 +411,7 @@ static NSInteger kStopsSectionTag = 101;
 
 #pragma mark - Alarms
 
+// TODO
 - (BOOL)hasAlarmForArrivalAndDeparture:(OBAArrivalAndDepartureV2*)dep {
     return YES;
 }
@@ -420,7 +421,7 @@ static NSInteger kStopsSectionTag = 101;
 
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alarms.confirm_deletion_alert_cancel_button", @"This is the button that cancels the alarm deletion.") style:UIAlertActionStyleCancel handler:nil]];
     [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"alarms.confirm_deletion_alert_delete_button", @"This is the button that confirms that the user really does want to delete their alarm.") style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action) {
-        //
+        // TODO
     }]];
 
     [self presentViewController:alert animated:YES completion:nil];
